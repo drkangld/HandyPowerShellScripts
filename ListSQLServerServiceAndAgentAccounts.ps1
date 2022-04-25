@@ -5,8 +5,6 @@ $ComputerList = Get-Content C:\Temp\ComputerList.txt
 $SQLServiceAccounts = @{}
 
 foreach ($Computer in $ComputerList) {
-  #$betty = $($(Get-WmiObject win32_service -ComputerName $Computer | where {$_.name -eq 'MSSQLServer'}).startname)
-  #Write-host "Computer is $Computer"
   $SQLServiceAccounts.add("$Computer-SQLServerService","$($(Get-WmiObject win32_service -ComputerName $Computer | where {$_.name -eq 'MSSQLServer'}).startname)")
   $SQLServiceAccounts.add("$Computer-SQLServerAgentService","$($(Get-WmiObject win32_service -ComputerName $Computer | where {$_.name -eq 'SQLSERVERAGENT'}).startname)")
 
