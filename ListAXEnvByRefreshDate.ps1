@@ -42,7 +42,7 @@ $Table = @()
 
             #CreationDate {
                 font-family: Arial, Helvetica, sans-serif;
-                color: #ff3300;
+                color: #ff3300;a
                 font-size: 12px;
             } 
             #InternalUse {
@@ -73,9 +73,29 @@ foreach ($server in $servers)
             AXDB = "$TXDB"
             RefreshDate = "$RefreshDate"
         }
-        $Table += $line | Select-Object Server,AXDB,RefreshDate
+        switch ($server)
+        {         
+          BRKAXHF1  {$assignedTo = "Fawad Siddiqui"}
+          BRKAXHF2  {$assignedTo = "Farooq Karim"}
+          BRKAXHF3  {$assignedTo = "Jossuet Farfan, Patrik Riberio"}
+          BRKAXHF4  {$assignedTo = "Dave Laymon"}
+          BRKAXHF5  {$assignedTo = "Shared"}
+          BRKAXHF6  {$assignedTo = "Franklin Arguello"}
+          BRKAXHF7  {$assignedTo = "Rich Ramos"}
+          BRKAXHF8  {$assignedTo = "Vacant"}
+          BRKAXHF9  {$assignedTo = "Justin Kurtz"}
+          BRKAXHF10 {$assignedTo = "Cris Martinez"}
+          BRKAXHF12 {$assignedTo = "Vacant"}
+          default   {$assignedTo = ""}
+        
+        }
+        $line | Add-Member -NotePropertyName "Assigned_To" -NotePropertyValue $assignedTo
+
+
+        $Table += $line | Select-Object Server,AXDB,RefreshDate,Assigned_To
+
 
 }
 
-$Report = $Table | sort {$_.RefreshDate -as [datetime]} -Descending | ConvertTo-html -Head $Header  | Out-file 'C:\Temp\AX_REFRESH_REPORT.HTML'
+$Report = $Table | sort {$_.RefreshDate -as [datetime]} | ConvertTo-html -Head $Header  | Out-file 'C:\Temp\AX_REFRESH_REPORT.HTML'
 Invoke-Item C:\Temp\AX_REFRESH_REPORT.HTML
