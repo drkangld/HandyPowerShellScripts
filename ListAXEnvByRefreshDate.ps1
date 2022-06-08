@@ -75,18 +75,24 @@ foreach ($server in $servers)
         }
         switch ($server)
         {         
-          BRKAXHF1  {$assignedTo = "Fawad Siddiqui"}
-          BRKAXHF2  {$assignedTo = "Farooq Karim"}
-          BRKAXHF3  {$assignedTo = "Jossuet Farfan, Patrik Riberio"}
-          BRKAXHF4  {$assignedTo = "Dave Laymon"}
-          BRKAXHF5  {$assignedTo = "Shared"}
-          BRKAXHF6  {$assignedTo = "Franklin Arguello"}
-          BRKAXHF7  {$assignedTo = "Rich Ramos"}
-          BRKAXHF8  {$assignedTo = "Vacant"}
-          BRKAXHF9  {$assignedTo = "Justin Kurtz"}
-          BRKAXHF10 {$assignedTo = "Cris Martinez"}
-          BRKAXHF12 {$assignedTo = "Vacant"}
-          default   {$assignedTo = ""}
+          BRKAXHF1        {$assignedTo = "Fawad Siddiqui"}
+          BRKAXHF2        {$assignedTo = "Farooq Karim"}
+          BRKAXHF3        {$assignedTo = "Jossuet Farfan"}
+          BRKAXHF4        {$assignedTo = "Dave Laymon"}
+          BRKAXHF5        {$assignedTo = "Shared"}
+          BRKAXHF6        {$assignedTo = "Franklin Arguello"}
+          BRKAXHF7        {$assignedTo = "Rich Ramos"}
+          BRKAXHF8        {$assignedTo = "Patrik Riberio"}
+          BRKAXHF9        {$assignedTo = "Justin Kurtz"}
+          BRKAXHF10       {$assignedTo = "Cris Martinez"}
+          BRKAXHF12       {$assignedTo = "Vacant"}
+          BRKAXDEV5       {$assignedTo = "RFSmart - P.Buckle,Musser,Reynolds"}
+          BRKAXDEV8       {$assignedTo = "Vacant"}
+          BRKAXDEV11      {$assignedTo = "Vacant"}
+          BRKAXDEV12      {$assignedTo = "WorkDay-M.Page"}
+          BRKAXDEV13      {$assignedTO = "App Support Team"}
+          OBDCAXSQLtrain1 {$assignedTo = "Training Env - J.Caputa"}
+          default         {$assignedTo = ""}
         
         }
         $line | Add-Member -NotePropertyName "Assigned_To" -NotePropertyValue $assignedTo
