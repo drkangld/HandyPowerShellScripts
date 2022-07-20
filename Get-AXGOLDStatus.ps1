@@ -1,4 +1,5 @@
 Set-ExecutionPolicy Bypass
+Add-Type -AssemblyName PresentationFramework
 $timestamp = Get-Date
 $RefreshStatus = $($(Get-ScheduledTask -TaskName "Refresh AXGOLDBLD" -CimSession BRKAXGOLDBLD).state).tostring()
 $AOSStatus = $($(Get-Service -ComputerName brkaxgoldbld -name 'AOS60$01').Status).tostring()
