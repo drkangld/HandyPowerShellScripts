@@ -5,7 +5,7 @@
 #>
 
 #File Name
-$logPath = "\\brkfs5\jams\logs"
+$logPath = "UNC File Path"
 #Get all the file names I'm looking for
 $logFiles = Get-ChildItem -path $logPath | where {$_.BaseName -like "SALES - Import eService Repairs (new)*"}
 #Gets the create date for each log file, ingests the file, looks for the line that contains the orders
