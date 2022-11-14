@@ -1,7 +1,8 @@
 $path = "c:\temp\junk"
 $filePFX = "JunkFile"
 $FileSFX = '.txt'
-$MaxFiles = 100
+$MaxFiles = 200
+
 
 for ($i = 1;$i -lt $MaxFiles;$i++)
   {  
@@ -9,8 +10,12 @@ for ($i = 1;$i -lt $MaxFiles;$i++)
    $newFile
  
    $file = new-item -path $path -Name $newFile -ItemType "file"
-   $file.LastWriteTime = $(Get-Date).AddDays(-$MaxFiles + $i +1)
    
+   #setting timestame, either sequential or random
+   $file.LastWriteTime = $(Get-Date).AddDays(-$MaxFiles + $i +1)
+   #$file.LastWriteTime = $(Get-Date).AddDays(-(1+$(Get-Random -Minimum 1 -maximum $MaxFiles)))
+   
+
    #$newFile.LastWriteTime = $(Get-date).AddDays(-$MaxFiles + $i)
 
 
