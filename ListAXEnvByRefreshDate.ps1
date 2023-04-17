@@ -85,7 +85,7 @@ foreach ($server in $servers)
           BRKAXHF8        {$assignedTo = "Patrik Riberio"}
           BRKAXHF9        {$assignedTo = "Justin Kurtz"}
           BRKAXHF10       {$assignedTo = "Cris Martinez"}
-          BRKAXHF12       {$assignedTo = "Vacant"}
+          BRKAXHF12       {$assignedTo = "Jack Bralick"}
           BRKAXDEV5       {$assignedTo = "RFSmart - P.Buckle,Musser,Reynolds"}
           BRKAXDEV8       {$assignedTo = "Vacant"}
           BRKAXDEV11      {$assignedTo = "Vacant"}
