@@ -1,0 +1,19 @@
+
+
+$CompName = "ServerName"
+$SvcName = "WindowsServiceName"
+$Status = '' #Initialize
+Write-Host "Starting $SvcName on $CompName..."
+Try { $(Get-service -ComputerName $CompName $SvcName).name | Set-Service -ComputerName $CompName -Status Running -StartupType Automatic -PassThru }
+Catch { $_.exception.message }
+
+
+if($(Get-service -ComputerName $CompName $SvcName).status -eq 'Running'){
+    $Status = $(Get-Service -ComputerName $CompName $SvcName).status
+    Send-MailMessage -smtpserver "intsmtp.milwaukeetool.com" -Port 25 -From NoReply@MilwaukeeTool.com -to cris.martinez@milwaukeetool.com -Subject "$SvcName service has been started on $CompName" -body "$SvcName has been started.  Current status is $Status"
+} Else {
+    $Status = $(Get-Service -ComputerName $CompName $SvcName).status
+    Send-MailMessage -smtpserver "intsmtp.milwaukeetool.com" -Port 25 -From NoReply@MilwaukeeTool.com -to cris.martinez@milwaukeetool.com -Subject "$SvcName service ERROR!!!" -body "$SvcName startup attempt on $CompName FAILED.  Current status is $($Status)"
+  }
+
+
