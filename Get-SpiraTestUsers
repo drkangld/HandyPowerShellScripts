@@ -1,0 +1,77 @@
+#HTML Stuff
+$header = @"
+        <style>
+
+            h1 {
+                font-family: Arial, Helvetica, sans-serif;
+                color: #e68a00;
+                font-size: 28px;
+            } 
+            h2 {
+                font-family: Arial, Helvetica, sans-serif;
+                color: #000099;
+                font-size: 16px;
+            } 
+            table {
+		        font-size: 12px;
+		        border: 0px; 
+		        font-family: Arial, Helvetica, sans-serif;
+	        } 
+	        td {
+		        padding: 4px;
+		        margin: 0px;
+		        border: 0;
+	        }
+            th {
+                background: #395870;
+                background: linear-gradient(#49708f, #293f50);
+                color: #fff;
+                font-size: 11px;
+                text-transform: uppercase;
+                padding: 10px 15px;
+                vertical-align: middle;
+	        }
+            tbody tr:nth-child(even) {
+                background: #f0f0f2;
+            }
+
+            #CreationDate {
+                font-family: Arial, Helvetica, sans-serif;
+                color: #ff3300;
+                font-size: 12px;
+            } 
+            #InternalUse {
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                color: #ff3300;
+                font-size: 12px;
+                text-align: center;
+            } 
+             .ONLINE {
+                color: #008000;
+            }
+            .OFFLINE {
+                color: #ff0000;
+                font-weight: bold;
+            }
+        </style>
+"@
+
+#SQL Query
+$DBServer = "<DatabaseInstanceName>"
+$Database = "<DatabaseName>"
+$Query = "SELECT [USER_ID],[USER_NAME],[EMAIL_ADDRESS],[IS_ACTIVE],[CREATION_DATE],[LAST_LOGIN_DATE],[LAST_ACTIVITY_DATE],[COMMENT] FROM [SpiraTest].[dbo].[TST_USER]"
+$SpiraTestUsers = $(Invoke-Sqlcmd -ServerInstance $($DBServer) -Database $($Database) -Query $Query)
+
+#Define the report parts
+#Report Header
+$ReportTitle = "SpiraTest User Report"
+
+#ConvertTo-HTML file and export file
+$Table = ''
+
+$Table = $SpiraTestUsers | ConvertTo-HTML -Fragment -PreContent "<h1>$ReportTitle</h1>" -property User_ID,User_Name,Email_Address,Is_Active,Creation_Date,Last_Login_Date,Last_Activity_Date,Comment
+
+$ReportRunTime = "<p id='CreationDate'>Creation Date: $(Get-Date)"
+$Report | ConvertTo-Html -Title "Spira Report" -body $Table -Head $header -PostContent "<p id='CreationDate'>Creation Date: $(Get-Date)<p id='InternalUse'>Milwaukee Tool &#169 Internal Use Only" | Out-file "C:\Temp\SpiraReport.html"
+Invoke-Item C:\Temp\SpiraReport.html
