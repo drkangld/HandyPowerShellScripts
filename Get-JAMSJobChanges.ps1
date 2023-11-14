@@ -1,7 +1,7 @@
 CLS
 $jobs = ''
 Import-Module JAMS
-New-PSDrive JD JAMS BRKJAMS1c -ErrorAction SilentlyContinue
+New-PSDrive JD JAMS <ServerInstance> -ErrorAction SilentlyContinue
 CD JD:\
 $jobs = Get-Childitem -Recurse -objecttype Job -ignorePredefined -FullObject
 cd c:\
