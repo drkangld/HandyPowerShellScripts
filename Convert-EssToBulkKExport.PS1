@@ -3,7 +3,7 @@ Write-Host "Stollen from Cris Martinez" -ForegroundColor Red
 $jsonObject = Read-Host -Prompt "Enter the AIS string"
 cls
 $jsonObject = ($jsonObject | ConvertFrom-Json)
-Write-Host "OK There are $($($jsonObject.Parameters).count) Parameters"
+Write-Host "OK There are $($($jsonObject.Parameters).count) Parameters" 
 
 Write-Host "Renaming OracleJobName to JobName and appending job definition..."
 #Rename OracleJobName to JobName
@@ -27,6 +27,12 @@ $jsonObject | Add-Member -MemberType NoteProperty -Name "FileName" -Value "Repla
 $jsonObject | Add-Member -MemberType NoteProperty -Name 'NotificationCode' -Value "10"
 #Add HasMultipleJobs
 $jsonObject | Add-Member -MemberType NoteProperty -Name 'HasMultipleJobs' -Value false
+#Add TimeOutMinutes placeholder if not present
+if ($jsonObject.TimeOutMinutes -eq $null)
+    {
+      $jsonObject | Add-Member -MemberType NoteProperty -Name 'TimeOutMinutes' -Value "int32"
+    }
+
 
 #Convert List to csv string and export json
 Write-Host "Converting list to parameter string..."
