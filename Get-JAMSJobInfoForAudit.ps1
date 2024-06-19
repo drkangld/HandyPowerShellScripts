@@ -23,7 +23,7 @@ in the header.
 Import-Module JAMS
 cls
 
-$jamsServer = "JAMSSERVERNAME"
+$jamsServer = "BRKJAMSQC3"
 $JAMSReportFile = "C:\temp\Outfile-$($jamsServer)_$(Get-date -f yyyyMMdd-hhmmss).csv"
 $JAMSFolder = "\"
 
@@ -39,9 +39,9 @@ $fileHeader = @("Team", "FolderQN", "JobName", "JobDescription", "JobAgent", "Jo
 $fileHeader -join ',' | Out-File -FilePath $JAMSReportFile
 
 
-#Find all the jobs in the folder, skip zArchive folders
+#Find all the jobs in the folder, skip zArchive folders and JAMS folder
 Foreach ($folder in $UniqueJAMSFolders) {
-  if ($($folder.QualifiedName) -match "zArchive") {
+  if ($($folder.QualifiedName) -match "zArchive|JAMS") {
     Write-Host "Skipping Folder:$($folder.QualifiedName)" -ForegroundColor Cyan
   }
   else {
@@ -89,3 +89,7 @@ Foreach ($folder in $UniqueJAMSFolders) {
     }
   }
 } 
+
+#Clean up.
+Write-Host "Cleaning up... removing JAMS Drive"
+Remove-PSDrive JD
