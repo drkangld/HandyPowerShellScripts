@@ -1,6 +1,6 @@
 Import-Module JAMS
 
-New-PSDrive JDB JAMS BRKJAMSQC2
+New-PSDrive JDB JAMS <JAMSSERVER>
 
 #
 # Adjust below line to change output path
